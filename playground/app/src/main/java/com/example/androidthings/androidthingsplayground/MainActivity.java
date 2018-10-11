@@ -20,6 +20,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         // TODO Light up the red led and blue led
+
+        // TODO control the LED with the button
+
     }
 
     @Override
