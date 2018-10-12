@@ -2,8 +2,9 @@ EPF IoT Hands-on
 ================
 
 This is Android Things hands-on workshop that showcases:
-- basic Android Things component
-- how to build weather station, using a fork of the Android Things weather stationcodelab.
+
+- how to control different GPIOs on Android Things
+- how to build weather station which reads seosor data, display it and send it to cloud (a fork of the Android Things weather stationcodelab)
 
 This is intially prepared for EPF IoT course 2018-2019.
 
@@ -185,6 +186,36 @@ Every time the button is pressed, the `OnButtonEventListener` will received the 
 #### 💻 Exercise 💻
 
 Control the led with your button, for example, when press on the button A, the red LED is lit; when the button is pressed again, the red LED is turned off. Raise hands when you are done 👋🏻
+
+### Advanced GPIO: PWM (Pulse Width Modulation)
+
+We have already seen during the presentation what a PWM (Pulse Width Modulation) is. Every one of you has a [SG90 servo motor](http://www.ee.ic.ac.uk/pcheung/teaching/DE1_EE/stores/sg90_datasheet.pdf) at disposal, now let's try to control the servo motor with code.
+
+It is fairly easy to initialize the servo moter with Rainbo HAT driver:
+
+```java
+Servo servo = RainbowHat.openServo();
+servo.setPulseDurationRange(1, 2);
+servo.setAngleRange(-90, 90);
+servo.setEnabled(true);
+
+```
+
+In order to move the servo motor, you can call these method:
+
+```java
+servo.setAngle(servo.getMinimumAngle());
+// or
+servo.setAngle(servo.getMaximumAngle());
+```
+
+Don't forget to close servo resource in `onDestroy()` when you are done with it.
+
+#### 💻 Exercise 💻
+
+Control the servo motor with one of the buttons! Raise hands when you are done 👋🏻
+
+![servo-example](img/at-servo.GIF)
 
 ## Weather Station 🌤
 
@@ -641,3 +672,4 @@ Hope you all enjoyed this hands-on and learned something about IoT & Android Thi
 
 - https://codelabs.developers.google.com/codelabs/androidthings-weatherstation
 - https://github.com/androidthings/weatherstation
+- https://github.com/eyal-lezmy/android-things-workshop
