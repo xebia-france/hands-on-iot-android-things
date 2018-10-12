@@ -226,7 +226,8 @@ import com.google.android.things.contrib.driver.ht16k33.AlphanumericDisplay;
 import com.google.android.things.contrib.driver.rainbowhat.RainbowHat;
 
 public class WeatherStationActivity extends Activity {
-    ...
+    
+    //...
 
     private AlphanumericDisplay mDisplay;
     private Apa102 mLedstrip;
@@ -235,8 +236,6 @@ public class WeatherStationActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "Weather Station Started");
-
-
     }
 }
 ```
@@ -358,7 +357,7 @@ public class WeatherStationActivity extends Activity {
             throw new RuntimeException("Error initializing BMP280", e);
         }
 
-        ...
+        //...
     }
 }
 ```
@@ -483,7 +482,7 @@ protected void onDestroy() {
         }
     }
 
-    ...
+    // ...
 }
 ```
 
@@ -523,14 +522,6 @@ Since the Pub/Sub client will also need to know the network state, add this perm
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 ```
 
-#### Register listeners
-
-// TODO
-
-#### Start the publisher
-
-// TODO
-
 #### Configure your project
 
 - Create a project in the [Google Cloud Platform console](https://console.cloud.google.com/).
@@ -538,7 +529,7 @@ Since the Pub/Sub client will also need to know the network state, add this perm
 
 ![enable-pub-sub](img/gcp/enable-pub-sub.png)
 
-- Under **IAM & Admin**, create a new Service Account, provision a new private key with JSON format and save the generated credentials (save the file with name `credentials.json`).
+- Under **IAM & Admin**, create a new Service Account, provision a new private key with JSON format and save the generated credentials with the filename `credentials.json`.
 
 ![create-service-account](img/gcp/create-service-account.png)
 
@@ -546,12 +537,69 @@ Since the Pub/Sub client will also need to know the network state, add this perm
 
 - Under **Pub/Sub**: create a new topic (e.g. `weather`) and in the **Permissions** add the service account created in the previous step with the role *Pub/Sub Publisher*.
 - Under **Pub/Sub**: create a new **Pull subscription** on your new topic.
-- Import the project into Android Studio. Add a file named `credentials.json` inside `app/src/main/res/raw/` with the contents of the credentials you downloaded in the previous steps.
+- Add the `credentials.json` you downloaded in the previous steps to `app/src/main/res/raw/` folder.
 - In `app/build.gradle`, replace the `buildConfigField` values with values from your project setup.
 
 ```
 buildConfigField "String", "PROJECT_ID", '"weather-station-demo-xxxx"'
 buildConfigField "String", "PUBSUB_TOPIC", '"weather"'
+```
+
+#### Start the publisher
+
+```java
+private PubsubPublisher mPubsubPublisher;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    Log.d(TAG, "Started Weather Station");
+	
+	...
+	
+	// start Cloud PubSub Publisher if cloud credentials are present.
+    int credentialId = getResources().getIdentifier("credentials", "raw", getPackageName());
+    if (credentialId != 0) {
+        try {
+            mPubsubPublisher = new PubsubPublisher(this, "weatherstation",
+                BuildConfig.PROJECT_ID, BuildConfig.PUBSUB_TOPIC, credentialId);
+            mPubsubPublisher.start();
+        } catch (IOException e) {
+            Log.e(TAG, "error creating pubsub publisher", e);
+        }
+    }
+}
+```
+
+#### Register listeners
+
+```java
+@Override
+protected void onStart() {
+    super.onStart();
+	
+	// ...
+
+    mSensorManager.registerListener(mPubsubPublisher.getTemperatureListener(), temperature,
+        SensorManager.SENSOR_DELAY_NORMAL);
+    mSensorManager.registerListener(mPubsubPublisher.getPressureListener(), pressure,
+        SensorManager.SENSOR_DELAY_NORMAL);
+}
+```
+
+#### Clean up publisher
+
+```java
+@Override
+protected void onDestroy() {
+    super.onDestroy();
+	if (mPubsubPublisher != null) {
+        mSensorManager.unregisterListener(mPubsubPublisher.getTemperatureListener());
+        mSensorManager.unregisterListener(mPubsubPublisher.getPressureListener());
+        mPubsubPublisher.close();
+        mPubsubPublisher = null;
+    }
+}
 ```
 
 #### Voilà

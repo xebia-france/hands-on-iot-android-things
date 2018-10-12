@@ -32,6 +32,8 @@ public class WeatherStationActivity extends Activity {
         Log.d(TAG, "Weather Station Started");
 
         //TODO: Register peripheral drivers here
+
+        //TODO: start Cloud PubSub Publisher if cloud credentials are present.
     }
 
     @Override
@@ -39,6 +41,8 @@ public class WeatherStationActivity extends Activity {
         super.onStart();
 
         //TODO: Register for sensor events here
+
+        //TODO: Register listener for publisher here
     }
 
     @Override
@@ -53,6 +57,8 @@ public class WeatherStationActivity extends Activity {
         super.onDestroy();
 
         //TODO: Close peripheral connections here
+
+        //TODO: Clean up Cloud PubSub publisher
     }
 
     /**

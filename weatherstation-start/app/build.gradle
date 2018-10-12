@@ -27,7 +27,12 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "PROJECT_ID", '"YOUR_PROJECT_ID"'
+            buildConfigField "String", "PUBSUB_TOPIC", '"YOUR_PUBSUB_TOPIC"'
+        }
         release {
+            initWith(buildTypes.debug)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
