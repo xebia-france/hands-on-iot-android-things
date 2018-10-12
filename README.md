@@ -602,10 +602,15 @@ protected void onDestroy() {
 }
 ```
 
-#### Voilà
+#### Verify data publishing
 
-Now synchronize gradle and run again the sample project, you can check if your data is ingested in Google Cloud Pub/Sub by using `gcloud` client. 
-running the following command:
+The default publishing interval is 1 minutes, you can tweak it in class `PubsubPublisher` to accelerate the test:
+
+```java
+private static final long PUBLISH_INTERVAL_MS = TimeUnit.MINUTES.toMillis(1);
+```
+
+Now launch again your project, you should be able to see in your Logcat if the publish is success. Then you can check if your data is ingested in Google Cloud Pub/Sub by using `gcloud` client, running the following command:
 ```
 gcloud --project <CLOUD_PROJECT_ID> beta pubsub subscriptions pull <PULL_SUBSCRIBTION_NAME>
 ```
