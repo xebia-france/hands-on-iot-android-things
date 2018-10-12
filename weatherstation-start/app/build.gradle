@@ -38,4 +38,12 @@ dependencies {
     compileOnly 'com.google.android.things:androidthings:1.0'
 
     //TODO: Add library driver artifacts here
+
+    // Google Cloud
+    implementation('com.google.api-client:google-api-client-android:1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    implementation('com.google.apis:google-api-services-pubsub:v1-rev12-1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
 }

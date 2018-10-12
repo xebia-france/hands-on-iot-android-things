@@ -46,8 +46,8 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
-// TODO(proppy): move to a service class.
 class PubsubPublisher {
+
     private static final String TAG = PubsubPublisher.class.getSimpleName();
 
     private final Context mContext;
