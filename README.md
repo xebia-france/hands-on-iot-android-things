@@ -1,7 +1,11 @@
-EPF IoT class Hands-on 
-======================
+EPF IoT Hands-on 
+================
 
-This is a fork of Android Things weather station codelab, prepared for EPF IoT course 2018-2019.
+This is Android Things hands-on workshop that showcases:
+- basic Android Things component
+- how to build weather station, using a fork of the Android Things weather stationcodelab.
+
+This is intially prepared for EPF IoT course 2018-2019.
 
 # Prerequisite
 
