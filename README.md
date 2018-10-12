@@ -315,7 +315,7 @@ protected void onDestroy() {
 
 Deploy the app to the device by selecting **Run → Run 'app'** from the menu, or click the **Run** icon in the toolbar. Verify that the display shows "1234" and all the LEDs on the Rainbow HAT are glowing red.
 
-![result](https://codelabs.developers.google.com/codelabs/androidthings-weatherstation/img/ed45c4d20cb49350.png)
+![result](img/display-result.jpg)
 
 ### 3. Read sensor data
 
@@ -385,7 +385,6 @@ Implement the `updateTemperatureDisplay()` method to write the temperature senso
 
 ```java
 private void updateTemperatureDisplay(float temperature) {
-
     if (mDisplay != null) {
         try {
             mDisplay.display(temperature);
@@ -402,7 +401,6 @@ Implement the `updateBarometerDisplay()` method to update the RGB LED strip base
 
 ```java
 private void updateBarometerDisplay(float pressure) {
-    
     if (mLedstrip != null) {
         try {
             int[] colors = RainbowUtil.getWeatherStripColors(pressure);
@@ -495,7 +493,7 @@ Deploy the app to the device by selecting **Run → Run 'app'** from the menu, o
 
 Verify that the Rainbow HAT display now shows the current temperature in ℃ and the LEDs show a rainbow gauge that corresponds to the pressure reading.
 
-![sensor-data-result](https://codelabs.developers.google.com/codelabs/androidthings-weatherstation/img/2944ad354c45ee6e.png)
+![sensor-data-result](img/sensor-data-result.jpg)
 
 #### (optional) add some graphic display
 
