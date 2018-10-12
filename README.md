@@ -316,6 +316,8 @@ Deploy the app to the device by selecting **Run → Run 'app'** from the menu, o
 
 ![result](img/display-result.jpg)
 
+Raise hands when you are done 👋🏻
+
 ### 3. Read sensor data
 
 The Rainbow HAT includes a BMP280 temperature and pressure sensor that is connected over the I2C serial bus. This driver handles the low-level I2C communication and binds the new sensor to the Android framework as a user-space driver. Once the driver is registered, your code will retrieve the sensor data using the standard SensorManager system service.
@@ -494,6 +496,8 @@ Verify that the Rainbow HAT display now shows the current temperature in ℃ and
 
 ![sensor-data-result](img/sensor-data-result.jpg)
 
+Raise hands when you are done 👋🏻
+
 #### (optional) add some graphic display
 
 ![result](img/result.jpg)
@@ -587,7 +591,7 @@ protected void onStart() {
 }
 ```
 
-#### Clean up publisher
+#### Clean up publisher 
 
 ```java
 @Override
@@ -602,7 +606,7 @@ protected void onDestroy() {
 }
 ```
 
-#### Verify data publishing
+#### Verify data publishing 👀
 
 The default publishing interval is 1 minutes, you can tweak it in class `PubsubPublisher` to accelerate the test:
 
@@ -617,6 +621,8 @@ gcloud --project <CLOUD_PROJECT_ID> beta pubsub subscriptions pull <PULL_SUBSCRI
 
 > TO install `glcoud` client: https://cloud.google.com/sdk/gcloud/
 
+Raise hands when you are done 👋🏻
+
 ## One Last Things
 
 Please uninstall your application from the Android Things board you use by running this adb command:
@@ -624,6 +630,8 @@ Please uninstall your application from the Android Things board you use by runni
 ```
 $ adb uninstall com.example.androidthings.weatherstation
 ```
+
+Hope you all enjoyed this hands-on and learned something about IoT & Android Things 🤓
 
 # Reference
 
