@@ -1,12 +1,10 @@
-EPF IoT Hands-on 
-================
+Android Things + Google Cloud Hands-on 
+======================================
 
-This is Android Things hands-on workshop that showcases:
+This Android Things hands-on showcases:
 
 - how to control different GPIOs on Android Things
 - how to build weather station which reads sensor data, display it and send it to cloud (a fork of the Android Things weather station codelab)
-
-This is intially prepared for EPF IoT course 2018-2019.
 
 # Prerequisite
 
