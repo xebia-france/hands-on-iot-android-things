@@ -213,7 +213,7 @@ Don't forget to close servo resource in `onDestroy()` when you are done with it.
 
 Control the servo motor with one of the buttons! Raise hands when you are done 👋🏻
 
-![servo-example](img/at-servo.GIF)
+![servo-example](img/at-servo.gif)
 
 ## Weather Station 🌤
 
